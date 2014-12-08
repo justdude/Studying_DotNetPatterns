@@ -1,0 +1,4 @@
+C:\Users\Albantov\Desktop\Patterns\Part2\bin\Debug\Part2.exe
+C:\Users\Albantov\Desktop\Patterns\Part2\bin\Debug\Part2.pdb
+C:\Users\Albantov\Desktop\Patterns\Part2\obj\Debug\Part2.exe
+C:\Users\Albantov\Desktop\Patterns\Part2\obj\Debug\Part2.pdb

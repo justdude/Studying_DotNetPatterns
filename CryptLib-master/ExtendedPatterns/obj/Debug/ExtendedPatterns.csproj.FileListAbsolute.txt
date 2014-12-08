@@ -1,0 +1,15 @@
+C:\Users\Ivan\Desktop\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Desktop\ExtendedPatterns\ExtendedPatterns\bin\Debug\ExtendedPatterns.exe
+C:\Users\Ivan\Desktop\ExtendedPatterns\ExtendedPatterns\bin\Debug\ExtendedPatterns.pdb
+C:\Users\Ivan\Desktop\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.exe
+C:\Users\Ivan\Desktop\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.pdb
+D:\Work\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.exe
+D:\Work\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.pdb
+D:\Work\ExtendedPatterns\ExtendedPatterns\obj\Debug\ExtendedPatterns.csprojResolveAssemblyReference.cache
+D:\Work\ExtendedPatterns\ExtendedPatterns\bin\Debug\ExtendedPatterns.exe
+D:\Work\ExtendedPatterns\ExtendedPatterns\bin\Debug\ExtendedPatterns.pdb
+D:\GIT\CryptLib\ExtendedPatterns\obj\Debug\ExtendedPatterns.exe
+D:\GIT\CryptLib\ExtendedPatterns\obj\Debug\ExtendedPatterns.pdb
+D:\GIT\CryptLib\ExtendedPatterns\obj\Debug\ExtendedPatterns.csprojResolveAssemblyReference.cache
+D:\GIT\CryptLib\ExtendedPatterns\bin\Debug\ExtendedPatterns.exe
+D:\GIT\CryptLib\ExtendedPatterns\bin\Debug\ExtendedPatterns.pdb

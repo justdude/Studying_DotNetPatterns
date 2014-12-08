@@ -1,0 +1,748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Шаблон проектирования Итератор</title>
+	<link rel="stylesheet" href="http://i-novice.net/wp-content/themes/business-blue-20/style.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://i-novice.net/wp-content/themes/business-blue-20/codecolorer.css" />
+	<link rel="alternate" type="application/rss+xml" title="От новичка до профессионала RSS Feed" href="http://i-novice.net/feed/" />
+	<link rel="pingback" href="http://i-novice.net/xmlrpc.php" />
+		<style type='text/css'>@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext);p.ecae-button { font-family: 'Open Sans', Helvetica, Arial, sans-serif; }</style><style type="text/css">border: 1px solid #ccc; background: #eee; padding: 5px; margin: 10px; font-size:12px;</style>
+<link rel='stylesheet' id='blogsynthesis-scroll-to-top-style-css'  href='http://i-novice.net/wp-content/plugins/jquery-smooth-scroll/css/jss-style.min.css?ver=3.8.4' type='text/css' media='all' />
+<link rel='stylesheet' id='avatars-css'  href='http://i-novice.net/wp-content/plugins/add-local-avatar/avatars.css?ver=3.8.4' type='text/css' media='all' />
+<link rel='stylesheet' id='imgareaselect-css'  href='http://i-novice.net/wp-includes/js/imgareaselect/imgareaselect.css?ver=0.9.8' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='http://i-novice.net/wp-includes/css/dashicons.min.css?ver=3.8.4' type='text/css' media='all' />
+<link rel='stylesheet' id='thickbox-css'  href='http://i-novice.net/wp-includes/js/thickbox/thickbox.css?ver=20131201' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://i-novice.net/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.7.2' type='text/css' media='all' />
+<link rel='stylesheet' id='crp_list_style-css'  href='http://i-novice.net/wp-content/plugins/contextual-related-posts/css/default-style.css?ver=3.8.4' type='text/css' media='all' />
+<link rel='stylesheet' id='ecae-buttonskin-none-css'  href='http://i-novice.net/wp-content/plugins/easy-custom-auto-excerpt/buttons/ecae-buttonskin-none.css?ver=2.1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='ecae-frontend-css-css'  href='http://i-novice.net/wp-content/plugins/easy-custom-auto-excerpt/assets/style-frontend.css?ver=2.1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='codecolorer-css'  href='http://i-novice.net/wp-content/plugins/codecolorer/codecolorer.css?ver=0.9.9' type='text/css' media='screen' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://i-novice.net/wp-content/themes/business-blue-20/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://i-novice.net/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/javascript' src='http://i-novice.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://i-novice.net/wp-content/plugins/jquery-smooth-scroll/js/jss-script.min.js?ver=3.8.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var append_link = {"read_more":"\u041f\u043e\u0434\u0440\u043e\u0431\u043d\u0435\u0435:","prepend_break":"2","use_title":"false","add_site_name":"false","site_name":"\u041e\u0442 \u043d\u043e\u0432\u0438\u0447\u043a\u0430 \u0434\u043e \u043f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u0430","site_url":"http:\/\/i-novice.net","always_link_site":"false"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://i-novice.net/wp-content/plugins/append-link-on-copy/js/append_link.js?ver=3.8.4'></script>
+
+<!-- All in One SEO Pack 2.1.4 by Michael Torbert of Semper Fi Web Design[291,374] -->
+<meta name="description" content="Описание шаблона проектирования Итератор и его назначение. С примером использования." />
+
+<meta name="keywords" content="шаблон проектирования, итератор, iterator,итератор,Профессиональный php" />
+
+<link rel="canonical" href="http://i-novice.net/shablon-proektirovaniya-iterator/" />
+<!-- /all in one seo pack -->
+		
+<script src="http://i-novice.net/wp-content/themes/business-blue-20/js/jquery.js" type="text/javascript"></script>
+<script src="http://i-novice.net/wp-content/themes/business-blue-20/js/form.js" type="text/javascript"></script>
+<!-- Скин markItUp! -->
+<link rel="stylesheet" type="text/css" href="/markitup/skins/markitup/style.css" />
+<!-- Скин панели markItUp! -->
+<link rel="stylesheet" type="text/css" href="/markitup/sets/html/style.css" />
+<!-- Сам markItUp! -->
+<script type="text/javascript" src="/markitup/markitup.js"></script>
+<!-- Панель markItUp! -->
+<script type="text/javascript" src="/markitup/sets/html/set.js"></script>
+<script type="text/javascript">
+<!--
+$(document).ready(function()	{
+	$('#comment').markItUp(mySettings);
+});
+-->
+</script>
+
+
+
+<link rel="stylesheet" href="/highlighter/SyntaxHighlighter.css" type="text/css" media="screen" />
+<script language="javascript" src="/highlighter/shCore.js"></script>
+<script language="javascript" src="/highlighter/shBrushPhp.js"></script>
+<script language="javascript" src="/highlighter/shBrushXml.js"></script>
+<script language="javascript" src="/highlighter/shBrushJScript.js"></script>
+<script language="javascript" src="/highlighter/shBrushSql.js"></script>
+<script language="javascript">
+window.onload = function () {
+	dp.SyntaxHighlighter.ClipboardSwf = '/highlighter/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+}
+</script>
+		
+</head>
+
+<div id="header">
+<div id="title" style="padding-top:5px;text-align:left; color:#FFFFFF">
+	<h1 style="line-height:50px; margin-left:0"><a href="http://i-novice.net/">От новичка до профессионала</a></h1>
+	Веб-разработка, php скрипты, поисковая оптимизация.</div>
+
+</div>
+<div id="navigation">	
+
+<div id="menu">	
+
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="left">
+			<ul>
+				<li><a href="http://i-novice.net">Главная</a></li>
+				<li class="page_item page-item-45"><a href="http://i-novice.net/karta/">Карта</a></li>
+<li class="page_item page-item-2"><a href="http://i-novice.net/about/">О проекте</a></li>
+<li class="page_item page-item-188"><a href="http://i-novice.net/obratnaya-svyaz/">Обратная связь</a></li>
+<li class="page_item page-item-111"><a href="http://i-novice.net/reklama/">Разместить рекламу</a></li>
+ 
+			</ul>	
+		</td>
+
+		<td align="right">
+
+<form action="http://www.google.ru/cse" id="cse-search-box" target="_blank">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-6799429811512499:fy35kf-gbqn" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" size="25" />
+    <input type="submit" class="SubmitBut" name="sa" value="&#x041f;&#x043e;&#x0438;&#x0441;&#x043a;" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.ru/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+
+		</td>
+	</tr>
+	</table>
+
+</div>
+
+
+</div>
+  <div id="container" class="clearfix">
+
+	<div class="SidebarContainer">
+
+		<div>
+		<div id="leftnav">
+		  		  <ul id="sidebarright">
+
+	<li>
+		<h2>Спонсоры</h2>
+<div class="textwidget">
+<noindex>
+<script type="text/javascript">
+_187835_BuyAdvertisementBanner = true;
+_187835_BuyAdvertising = "Купить рекламу";
+_187835_Vertical = false;
+_187835_RepeatAll = false;
+_187835_NoFollowAll = false;
+_187835_BannerStyles = new Array(
+	"a{display:block;font-size:11px;color:#777;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+	"img{border:0;clear:right;}",
+	"a.adhere{color:#444;font-weight:bold;font-size:11px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+	"a.adhere:hover{border:1px solid #999;background:#ddd;color:#222;}"
+);
+document.write(unescape("%3Cscript src='http://s1.rotaban.ru/187835/187835.js?v="+Math.random()+"' type='text/javascript' %3E%3C/script%3E"));
+</script>
+</noindex>
+</div>
+	</li>
+
+	<li>
+		<h2>Рубрики</h2>
+		<ul>
+			<li class="cat-item cat-item-120"><a href="http://i-novice.net/category/ajax_js/" title="Все что касается javascript и ajax технологий">AJAX / Javascript</a>
+</li>
+	<li class="cat-item cat-item-212"><a href="http://i-novice.net/category/lifehack/" title="Как быть эффективным.">Lifehack</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://i-novice.net/category/seo/" title="Здесь вы постепенно узнаете вместе со мной о том, как раскрутить и оптимизировать сайт.">SEO / SMO</a>
+</li>
+	<li class="cat-item cat-item-210"><a href="http://i-novice.net/category/soft/" title="Программное обеспечение">Soft</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://i-novice.net/category/wordpress/" title="Здесь я буду писать о том, как оптимизировать и настраивать ваш блог">Wordpress</a>
+</li>
+	<li class="cat-item cat-item-81"><a href="http://i-novice.net/category/security/" title="Я считаю, что безопасность не стоит обходить стороной">Безопасность</a>
+</li>
+	<li class="cat-item cat-item-277"><a href="http://i-novice.net/category/bolshoj-web/" title="Разное из Сети.">Большой Web</a>
+</li>
+	<li class="cat-item cat-item-291"><a href="http://i-novice.net/category/domeny/" title="Просмотреть все записи в рубрике &laquo;Домены&raquo;">Домены</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="http://i-novice.net/category/zhiznennoe/" title="Ну в этой рубрике будет все, что не подошло под другие по каким-либо причинам.">Жизненное</a>
+</li>
+	<li class="cat-item cat-item-119"><a href="http://i-novice.net/category/php_basics/" title="В этом разделе собран материал о таких основах php как синтаксис и принципы работы некоторых функций.">Основы php</a>
+</li>
+	<li class="cat-item cat-item-198"><a href="http://i-novice.net/category/poiskovye-sistemy/" title="Просмотреть все записи в рубрике &laquo;Поисковые системы&raquo;">Поисковые системы</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="http://i-novice.net/category/solutions/" title="Очень полезная и интересная рубрика, здесь найдете практические решения повседневных и не только задач">Практика php</a>
+</li>
+	<li class="cat-item cat-item-127"><a href="http://i-novice.net/category/advanced_php/" title="Теория и практика рефакторинга кода и прочие вопросы продвинутого программирования на PHP">Продвинутый php</a>
+</li>
+	<li class="cat-item cat-item-156"><a href="http://i-novice.net/category/professionalnyj-php/" title="Просмотреть все записи в рубрике &laquo;Профессиональный php&raquo;">Профессиональный php</a>
+</li>
+	<li class="cat-item cat-item-103"><a href="http://i-novice.net/category/raznoe/" title="Просмотреть все записи в рубрике &laquo;Разное&raquo;">Разное</a>
+</li>
+	<li class="cat-item cat-item-32"><a href="http://i-novice.net/category/raskrutka-bloga/" title="Как сделать блог популярным.">Раскрутка блога</a>
+</li>
+		</ul>
+	</li>
+
+<li id="archives-2" class="widget widget_archive"><h2 class="widgettitle">Архивы</h2>
+<div class="textwidget">
+<form id="archiveform" action="">
+<select name="archive_chrono" onchange="window.location =
+(document.forms.archiveform.archive_chrono[document.forms.archiveform.archive_chrono.selectedIndex].value);">
+<option value=''>выберите месяц…</option>
+	<option value='http://i-novice.net/2014/11/'> Ноябрь 2014 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2014/10/'> Октябрь 2014 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2014/09/'> Сентябрь 2014 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2014/08/'> Август 2014 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2014/07/'> Июль 2014 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2014/06/'> Июнь 2014 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2014/01/'> Январь 2014 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2013/12/'> Декабрь 2013 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2013/11/'> Ноябрь 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2013/10/'> Октябрь 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2013/09/'> Сентябрь 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2013/08/'> Август 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2013/07/'> Июль 2013 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2013/06/'> Июнь 2013 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2013/05/'> Май 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2013/04/'> Апрель 2013 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2013/03/'> Март 2013 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2013/02/'> Февраль 2013 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2013/01/'> Январь 2013 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2012/12/'> Декабрь 2012 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2012/11/'> Ноябрь 2012 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2012/10/'> Октябрь 2012 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2012/09/'> Сентябрь 2012 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2012/08/'> Август 2012 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2012/07/'> Июль 2012 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2012/05/'> Май 2012 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2012/04/'> Апрель 2012 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2012/03/'> Март 2012 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2012/02/'> Февраль 2012 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2012/01/'> Январь 2012 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2011/12/'> Декабрь 2011 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2011/11/'> Ноябрь 2011 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2011/10/'> Октябрь 2011 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2011/09/'> Сентябрь 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2011/08/'> Август 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2011/07/'> Июль 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2011/06/'> Июнь 2011 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2011/05/'> Май 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2011/04/'> Апрель 2011 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2011/03/'> Март 2011 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2011/02/'> Февраль 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2011/01/'> Январь 2011 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2010/12/'> Декабрь 2010 &nbsp;(7)</option>
+	<option value='http://i-novice.net/2010/11/'> Ноябрь 2010 &nbsp;(25)</option>
+	<option value='http://i-novice.net/2010/10/'> Октябрь 2010 &nbsp;(9)</option>
+	<option value='http://i-novice.net/2010/09/'> Сентябрь 2010 &nbsp;(6)</option>
+	<option value='http://i-novice.net/2010/08/'> Август 2010 &nbsp;(15)</option>
+	<option value='http://i-novice.net/2010/07/'> Июль 2010 &nbsp;(7)</option>
+	<option value='http://i-novice.net/2010/03/'> Март 2010 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2010/02/'> Февраль 2010 &nbsp;(4)</option>
+	<option value='http://i-novice.net/2010/01/'> Январь 2010 &nbsp;(1)</option>
+	<option value='http://i-novice.net/2009/06/'> Июнь 2009 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2009/05/'> Май 2009 &nbsp;(3)</option>
+	<option value='http://i-novice.net/2009/04/'> Апрель 2009 &nbsp;(2)</option>
+	<option value='http://i-novice.net/2009/03/'> Март 2009 &nbsp;(5)</option>
+	<option value='http://i-novice.net/2009/02/'> Февраль 2009 &nbsp;(11)</option>
+	<option value='http://i-novice.net/2009/01/'> Январь 2009 &nbsp;(16)</option>
+	<option value='http://i-novice.net/2008/12/'> Декабрь 2008 &nbsp;(10)</option>
+	<option value='http://i-novice.net/2008/11/'> Ноябрь 2008 &nbsp;(13)</option>
+	<option value='http://i-novice.net/2008/10/'> Октябрь 2008 &nbsp;(17)</option>
+	<option value='http://i-novice.net/2008/09/'> Сентябрь 2008 &nbsp;(16)</option>
+	<option value='http://i-novice.net/2008/08/'> Август 2008 &nbsp;(23)</option>
+	<option value='http://i-novice.net/2008/07/'> Июль 2008 &nbsp;(29)</option>
+	<option value='http://i-novice.net/2008/06/'> Июнь 2008 &nbsp;(22)</option>
+	<option value='http://i-novice.net/2008/05/'> Май 2008 &nbsp;(15)</option>
+</select>
+</form>
+</div>
+</li>
+
+	</li>
+
+<li>
+		<h2>Популярное</h2>
+		<ul>
+		<li><a href="http://i-novice.net/shifrovanie-algoritmom-xxtea-na-php/">Шифрование алгоритмом XXTEA на PHP</a></li>
+		<li><a href="http://i-novice.net/sostavlyaem-trebovaniya-k-po/">Составляем требования к ПО</a></li>
+		<li><a href="http://i-novice.net/otchet-po-prodvizheniyu-18-yanvarya-2009/">Отчет по продвижению</a></li>
+		<li><a href="http://i-novice.net/parsim-sajty-s-phpquery/">Парсим сайты с phpQuery</a></li>
+		<li><a href="http://i-novice.net/skript-dlya-zakachki-fajla-s-podderzhkoj-dokachki/">Скрипт для закачки файла с поддержкой докачки</a></li>
+		<li><a href="http://i-novice.net/kak-ya-nauchilsya-parsit-xml-v-php/">Как сделать xml parser.</a></li>
+		<li><a href="http://i-novice.net/refaktoring-vydelenie-klassa/">Рефакторинг: выделение класса</a></li>
+		<li><a href="http://i-novice.net/izmenyaem-soderzhimoe-xml/">Изменяем содержимое XML</a></li>
+		</ul>
+</li>
+
+</ul>		</div>
+
+		<div id="rightnav">
+		  
+<ul id="sidebarleft">
+
+<br /><br />
+
+<li>
+<ul>
+<div align="center">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6799429811512499";
+/* i-novice.net 120x240, создано 26.01.10 */
+google_ad_slot = "0723344823";
+google_ad_width = 120;
+google_ad_height = 240;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</ul>
+</li>
+
+<li>
+		<h2>Моя рассылка</h2>
+		<ul>
+<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=i-novice', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+	<p><input type="text" style="width:140px" value="Ваш E-mail" onfocus="if (this.value=='Ваш E-mail') this.value='';" name="email"/></p>
+	<input type="hidden" value="i-novice" name="uri"/>
+	<input type="hidden" name="loc" value="ru_RU"/>
+	<input type="submit" value="Подписаться" /></form>
+		</ul>
+</li>
+
+<li>
+<h3 style="padding-left:0; text-align:center"><a href="http://i-novice.net/zheltaya-knopka-rss/" style="color:#ecb103">Что за кнопка?</a></h3>
+		<ul>
+<div align="center">
+<a href="http://feeds.feedburner.com/i-novice">
+	<img src="http://i-novice.net/img/rss-icon-1.png" border="0" />
+</a>
+<p><a href="http://feeds.feedburner.com/i-novice"><img src="http://feeds.feedburner.com/~fc/i-novice?bg=FF9900&amp;fg=444444&amp;anim=1" height="26" width="88" style="border:0" alt="" /></a>
+	</p>
+</div>
+		</ul>
+</li>
+
+<li>
+		<h2>Последние записи</h2>
+		<ul>
+			<li><a href='http://i-novice.net/neskolko-rekomendatsij-po-vyboru-hostinga-dlya-biznesa/'>Несколько рекомендаций по выбору хостинга для бизнеса</a></li>
+	<li><a href='http://i-novice.net/obzor-knigi-zapuskaem-innovatsii-kak-osushhestvit-mechtu/'>Обзор книги: Запускаем инновации, как осуществить мечту?</a></li>
+	<li><a href='http://i-novice.net/onedrive-dopolnitelnyj-oblachnyj-hosting-dlya-polzovatelej-office-365/'>OneDrive – дополнительный облачный хостинг для пользователей Office 365</a></li>
+	<li><a href='http://i-novice.net/vojna-google-s-piratskimi-sajtami/'>Война Google с пиратскими сайтами</a></li>
+	<li><a href='http://i-novice.net/vopros-vybora-arenda-servera-ili-oblachnyj-hosting/'>Вопрос выбора: аренда сервера или облачный хостинг?</a></li>
+		</ul>
+</li>
+<p align="center"><script src="http://www.ad.admitad.com/shuffle/70194be4ee/" type="text/javascript"></script></p>
+
+<li id="text-3" class="widget widget_text">
+	<h2 class="widgettitle">Статистика</h2>
+			<div class="textwidget">
+<noindex>
+	<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t21.10;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border=0 width=88 height=31><\/a>")//--></script><!--/LiveInternet-->
+
+<a rel="nofollow" href="http://blograte.ru/" target="_blank"><img src="http://blograte.ru/button/" width="88" height="31" border="0" alt="Участник Blograte.ru" title="Участник Blograte.ru" /></a>
+
+<!-- I.UA counter --><a rel="nofollow" href="http://www.i.ua/" target="_blank" onclick="this.href='http://i.ua/r.php?73468';" title="Rated by I.UA">
+<script type="text/javascript" language="javascript"><!--
+iS='<img src="http://r.i.ua/s?u73468&p269&n'+Math.random();
+iD=document;iD.cookie="iua=1";if(iD.cookie)iS+='&c1';
+iS+='&d'+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)
++"&w"+screen.width+'&h'+screen.height;
+iT=iD.referrer.slice(7);iH=window.location.href.slice(7);
+((iI=iT.indexOf('/'))!=-1)?(iT=iT.substring(0,iI)):(iI=iT.length);
+if(iT!=iH.substring(0,iI))iS+='&f'+escape(iD.referrer.slice(7));
+iS+='&r'+escape(iH);
+iD.write(iS+'" border="0" width="88" height="15" />');
+//--></script></a><!-- End of I.UA counter -->
+</noindex>
+</div>
+		</li>
+
+	<li>
+		<h2>Мой Твиттер</h2>
+		<ul>
+twitter.com/inovicenet
+		</ul>
+	</li>
+	<li>
+</ul>
+
+		</div>
+		</div>
+	</div>
+
+    <div id="content">
+
+<p>
+<script type="text/javascript"><!--
+google_ad_client = "pub-6799429811512499";
+/* i-novice.net 468x15, создано 03.02.10 */
+google_ad_slot = "3959704698";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br /><br />
+<noindex>
+<script type="text/javascript">
+_188017_BuyAdvertisementBanner = true;
+_188017_BuyAdvertising = "Купить рекламу";
+_188017_Vertical = false;
+_188017_RepeatAll = false;
+_188017_NoFollowAll = false;
+_188017_BannerStyles = new Array(
+	"a{display:block;font-size:11px;color:#777;font-family:verdana,sans-serif;margin:0 4px 10px 0;text-align:center;text-decoration:none;overflow:hidden;}",
+	"img{border:0;clear:right;}",
+	"a.adhere{color:#444;font-weight:bold;font-size:11px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+	"a.adhere:hover{border:1px solid #999;background:#ddd;color:#222;}"
+);
+document.write(unescape("%3Cscript src='http://s1.rotaban.ru/188017/188017.js?v="+Math.random()+"' type='text/javascript' %3E%3C/script%3E"));
+</script>
+</noindex>
+</p>
+
+  
+			<div class="post" id="post-171">
+			<h1 class="posttitle"><a href="http://i-novice.net/shablon-proektirovaniya-iterator/" rel="bookmark" title="Permanent Link: Шаблон проектирования &#8220;Итератор&#8221;">Шаблон проектирования &#8220;Итератор&#8221;</a></h1>
+
+
+			<div class="entry">
+<p>Сегодня наконец вернемся к теме шаблонов проектирования и рассмотрим  такое шаблон как Итератор.</p>
+<p>Для начала давайте рассмотрим в общих чертах некоторые ситуацию в которой этот шаблон может помочь.</p>
+<p>Допустим, задача нашей программы – проверка работоспособности какой-то сложной системы из большого кол-во разнообразных объектов-модулей.  Для этого нужно будет последовательно обратиться к каждому объекту и проверить его состояние.</p>
+<p>В случае, если все объекты в рабочем состоянии, то и сама система тоже работает.<br />
+В этом случае нужно как-то реализовать последовательный обход всех объектов. Для этого, предварительно нужно их собрать как-то в коллекцию и организовать удобный доступ к ней через промежуточный интерфейс.<br />
+<span id="more-171"></span><br />
+В результате работы этого шаблона цикл обхода нашего набора модулей будет выглядеть довольно удобно:</p>
+<pre class="php">$mod1 = new Module();
+$mod2 = new Module();
+$mod3 = new Module();
+$mods = new ModsList();
+
+$mods-&gt;add($mod1)-&gt;add($mod2)-&gt;add($mod3);
+
+$modules = new ModsIterator($mods);
+
+$sys_status = true;
+
+while ($modules-&gt;hasModule()) {
+	$module = $modules-&gt;getCurrentMod();
+	If (!$module-&gt;isOk()) {
+	     $sys_status = false;
+        }
+}
+echo "System works : ".$sys_status;</pre>
+<p>Для реализации этого механизма нам потребуется всего 3 класса: класс модуля, класс списка модулей и класс итератора модулей.</p>
+<pre class="php">class Module {
+
+	private $_status = true;
+
+	function __construct() {
+        }
+
+       public function isOk() {
+          return $this-&gt;_status;
+       }
+}
+
+class ModsList {
+
+	private $_mods_list;
+
+	function __construct() {
+	}
+
+	public function add(Module $mod) {
+		$this-&gt;_mods_list[$this-&gt;getCount()+1] = $mod;
+		return $this;
+	}
+
+	public function getCount() {
+		return count($this-&gt;_mods_list);
+	}
+
+}
+
+class ModsIterator {
+
+	private $_mods;
+	private $_cur_mod = 0;
+
+	function __construct(ModsList $mods) {
+		$this-&gt;_mods = $mods;
+	}
+
+	public function hasModule() {
+
+		if ($this-&gt;_cur_mod &lt;= count($this-&gt;_mods)) {
+			$this-&gt;_cur_mod += 1;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCurMod() {
+		return $this-&gt;_mods[$this-&gt;_cur_mod];
+	}
+
+}</pre>
+<p>Еще одним полезным качеством этого шаблона является то, что при необходимости можно изменить способ обхода объектов, внеся изменения только в один класс или вообще решить этот вопрос  через наследование.<br />
+На своей практике Вы наверняка ни раз столкнетесь с ситуацией в которой это шаблон можно будет применить. Как только это случиться – обязательно воспользуйтесь шансом и Вам не придется об этом жалеть.</p>
+<p>На этом у меня все. Удачи и до встречи! <img src="http://i-novice.net/wp-includes/images/smilies/icon_smile.gif" alt="Шаблон проектирования Итератор" class="wp-smiley" title="Шаблон проектирования Итератор" /> </p>
+
+				<div>
+<br />
+            <div class="labels">
+
+<!-- Яндекс.Директ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id = 97608;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1.2;
+yandex_direct_type = 'flat';
+yandex_direct_limit = 4;
+yandex_direct_title_font_size = 3;
+yandex_direct_title_color = 'D7464C';
+yandex_direct_url_color = '000000';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '4665D7';
+yandex_direct_favicon = true;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]>
+</script>
+			</div>
+<br />
+            <div class="labels">
+				<b>Теги:</b> <a href="http://i-novice.net/tags/iterator/" rel="tag">итератор</a>, <a href="http://i-novice.net/tags/shablon-proektirovaniya/" rel="tag">шаблон проектирования</a>			</div>
+<br />
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script> <div class="yashare-auto-init" data-yashareQuickServices="vkontakte,odnoklassniki,yaru,facebook,twitter,moimir,gplus" data-yashareTheme="counter" data-yashareType="big"></div>
+<br />
+
+				<b>Читайте также:</b> <br /><br />
+<div id="crp_related" class="crp_related"><ul><li><a href="http://i-novice.net/poiskovik-google-cherez-novigator/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2013%2F01%2F04-11-11-05.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Поисковик Google через новигатор" title="Поисковик Google через новигатор" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/poiskovik-google-cherez-novigator/"     class="crp_title">Поисковик Google через новигатор</a></li><li><a href="http://i-novice.net/neskolko-rekomendatsij-po-vyboru-hostinga-dlya-biznesa/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2014%2F11%2Fkak-vybrat-hosting1-400x240.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Несколько рекомендаций по выбору хостинга для бизнеса" title="Несколько рекомендаций по выбору хостинга для бизнеса" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/neskolko-rekomendatsij-po-vyboru-hostinga-dlya-biznesa/"     class="crp_title">Несколько рекомендаций по&hellip;</a></li><li><a href="http://i-novice.net/obzor-knigi-zapuskaem-innovatsii-kak-osushhestvit-mechtu/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2014%2F11%2FDSC00056-400x277.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Обзор книги: Запускаем инновации, как осуществить мечту?" title="Обзор книги: Запускаем инновации, как осуществить мечту?" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/obzor-knigi-zapuskaem-innovatsii-kak-osushhestvit-mechtu/"     class="crp_title">Обзор книги: Запускаем&hellip;</a></li><li><a href="http://i-novice.net/novye-vozmozhnosti-yazyka-programmirovaniya-swift-ot-apple/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2014%2F07%2FSwift-apple-developer1-400x230.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Новые возможности языка программирования Swift от Apple" title="Новые возможности языка программирования Swift от Apple" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/novye-vozmozhnosti-yazyka-programmirovaniya-swift-ot-apple/"     class="crp_title">Новые возможности языка&hellip;</a></li><li><a href="http://i-novice.net/izrail-podtverdil-svoyu-neprichastnost-k-kiberatake/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2012%2F05%2Fvirus222.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Израиль подтвердил свою непричастность к кибератаке" title="Израиль подтвердил свою непричастность к кибератаке" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/izrail-podtverdil-svoyu-neprichastnost-k-kiberatake/"     class="crp_title">Израиль подтвердил свою&hellip;</a></li><li><a href="http://i-novice.net/bor-ba-za-domeny/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2013%2F03%2Fdomen-400x300.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Борьба за домены" title="Борьба за домены" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/bor-ba-za-domeny/"     class="crp_title">Борьба за домены</a></li><li><a href="http://i-novice.net/poiskovy-j-servis-shodan-ser-eznaya-ugroza-sistemam-bezopasnosti/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2013%2F10%2FSHODAN1.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Поисковый сервис Shodan &#8211; серьезная угроза системам безопасности" title="Поисковый сервис Shodan &#8211; серьезная угроза системам безопасности" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/poiskovy-j-servis-shodan-ser-eznaya-ugroza-sistemam-bezopasnosti/"     class="crp_title">Поисковый сервис Shodan &#8211;&hellip;</a></li><li><a href="http://i-novice.net/vopros-vybora-arenda-servera-ili-oblachnyj-hosting/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2014%2F10%2F2-400x300.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Вопрос выбора: аренда сервера или облачный хостинг?" title="Вопрос выбора: аренда сервера или облачный хостинг?" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/vopros-vybora-arenda-servera-ili-oblachnyj-hosting/"     class="crp_title">Вопрос выбора: аренда сервера&hellip;</a></li><li><a href="http://i-novice.net/bezopasnyj-hosting-dlya-shkolnyh-sajtov/"    ><img src="http://i-novice.net/wp-content/plugins/contextual-related-posts/timthumb/timthumb.php?src=http%3A%2F%2Fi-novice.net%2Fwp-content%2Fuploads%2F2014%2F08%2Fschool_internet-400x260.jpg&amp;w=150&amp;h=150&amp;zc=1&amp;q=75" alt="Безопасный хостинг для школьных сайтов" title="Безопасный хостинг для школьных сайтов" width="150" height="150" border="0" class="crp_thumb" /></a><a href="http://i-novice.net/bezopasnyj-hosting-dlya-shkolnyh-sajtov/"     class="crp_title">Безопасный хостинг для школьных&hellip;</a></li></ul><br /></div>
+					<br />
+				</div><br />
+
+				</div>
+
+</div>
+
+
+	<div class="post">
+
+	
+<script>
+function CommentPost() {
+
+	$('#err_no_name').hide();
+	$('#err_no_email').hide();
+	$('#err_no_message').hide();
+
+	var is_valid = true;
+
+	if ($('#author').val() == '') {
+		$('#err_no_name').show();
+		is_valid = false;
+	}
+
+	if ($('#email').val() == '') {
+		$('#err_no_email').show();
+		is_valid = false;
+	}
+
+	if ($('#comment').val() == '') {
+		$('#err_no_message').show();
+		is_valid = false;
+	}
+
+
+	if (is_valid) {
+
+		$('#respond').html('Подождите...');
+
+		var options = {
+			success: function() {
+				$('#respond').css('color', 'green');
+				$('#respond').html('Спасибо за комментарий! После проверки модератором он появится на сайте. Или не появится. :)');
+				$('#comment').html('');
+			}
+		};
+		$('#commentform').ajaxSubmit(options);
+
+	}
+
+	return false;
+}
+</script>
+
+<!-- You can start editing here. -->
+
+
+
+	<h4 id="comments">4 Ответов на &#8220;Шаблон проектирования &#8220;Итератор&#8221;&#8221;</h4> 
+
+	<ol class="commentlist" id="CommentsList">
+
+	
+		<li class="alt" id="comment-2209">
+
+			<div class="CommentAuthor">
+				<span class="AuthorName"><a rel="nofollow" target="_blank" href='http://i-novice.net/gout/DhFHSQwbTQoKBFZPQ0M=/'  class='url'>Andy</a></span><br />
+			</div>
+
+			<div class="CommentText">
+				<p>В php 5 есть встроенный интерфейс итератора, реализовав который, объект итерируется как массив.<br />
+Тут описано: <a rel="nofollow" target="_blank" href="http://i-novice.net/gout/DhFHSQwbTRUJQkoTRBlVVQpGBVoeWVlWAUYEAQQZDl4WUB1QQlEQBBVbCw9CGFBACV8=/" >Your text to link&#8230;</a></p>
+			</div>
+
+		</li>
+
+		
+	
+		<li class="" id="comment-2210">
+
+			<div class="CommentAuthor">
+				<span class="AuthorName">Igor</span><br />
+			</div>
+
+			<div class="CommentText">
+				<p>Цель статьи как я понял объяснить, что это за шаблон и с чем его едят.</p>
+			</div>
+
+		</li>
+
+		
+	
+		<li class="alt" id="comment-2211">
+
+			<div class="CommentAuthor">
+				<span class="AuthorName"><a href='http://i-novice.net' rel='external nofollow' class='url'>cryptus</a></span><br />
+			</div>
+
+			<div class="CommentText">
+				<p>2 Andy: Полезно знать как это устроено <img src="http://i-novice.net/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> </p>
+			</div>
+
+		</li>
+
+		
+	
+		<li class="" id="comment-3847">
+
+			<div class="CommentAuthor">
+				<span class="AuthorName"><a rel="nofollow" target="_blank" href='http://i-novice.net/gout/DhFHSQwbTQYOVgETVldVURcdFkM=/'  class='url'>Cтепан</a></span><br />
+			</div>
+
+			<div class="CommentText">
+				<p>Спасибо за шаблон. Очень поможет в работе.</p>
+			</div>
+
+		</li>
+
+		
+	
+	</ol>
+
+
+
+ 
+
+<!-- COMMENT FORM -->
+
+<div style="clear:both; padding-left:8px;">
+
+	
+		<h4 id="respond" style="padding-left:0;">Оставить комментарий</h4>
+
+		
+			<form action="http://i-novice.net/wp-comments-post.php" method="post" id="commentform">
+
+			
+		<p>
+			<input type="text" name="author" id="author" class="CommentStrInput" value="" size="22" tabindex="1" />
+			<label for="author"><span style='color:red'>*</span> Имя </label> <span style='color:red; display:none' id="err_no_name"><b>(Укажите имя)</b></span>
+		</p>
+
+		<p>
+			<input type="text" name="email" id="email" class="CommentStrInput" value="" size="22" tabindex="2" />
+			<label for="email"><span style='color:red'>*</span> E-mail </label> <span style='color:red; display:none' id="err_no_email"><b>(Укажите E-mail)</b></span>
+		</p>
+
+		 	
+		<p>
+			<input type="text" name="mcspvalue" id="mcspvalue" class="CommentStrInput" value="" size="22" tabindex="4" />
+			<label for="mcspvalue">Антиспам: Сколько будет 1 + 10 ?</label>
+			<input type="hidden" name="mcspinfo" value="51af6" />
+		</p>
+		
+			<span style='color:red; display:none' id="err_no_message"><b>Забыли написать сообщение? :)</b></span>
+		<p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+		<p>
+			<input name="submit" type="submit" onclick="CommentPost(); return false;" id="submit" class="CommentSubmitBut" tabindex="5" value="Комментировать" />
+			<input type="hidden" name="comment_post_ID" value="171" />
+		</p>
+		<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="2ca5251d4c" /></p><p style="display:none;"><input type="text" name="nxts" value="1416355275" /><input type="text" name="nxts_signed" value="43ff38b3b0c1997045f08d27f91ce785d5c5396e" /><input type="text" name="253368d8147bb0" value="16fbb63c8e24b41f310d" /><input type="text" name="79489827f2b1" value="" /></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+	<label for="subscribe">
+	Уведомлять меня о новых комментариях по почте
+	</label>
+	</p>
+
+
+
+		</form>
+
+
+	
+</div>
+
+
+	
+    </div>
+
+    </div>
+
+	<div id="footwrap" style="text-align:left; padding-left:5px">
+		<br />
+	&copy 2008 - 2014 i-novice.net | Все права защищены.
+	</div>
+<!-- <p align="center">
+1111
+</p> -->
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2405110-43");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+  </div>
+</body>
+</html>
